@@ -3,23 +3,23 @@
 A beautiful, modern anime information website built with HTML, CSS, and JavaScript. Features a stunning glassmorphism design with smooth animations and comprehensive anime database.
 
 
-## ✨ Features
+##  Features
 
-### 🎨 Modern Design
+###  Modern Design
 - **Glassmorphism UI** with translucent elements and backdrop blur effects
 - **Gradient animations** with dynamic color transitions
 - **Smooth hover effects** and micro-interactions
 - **Responsive design** that works on all devices
 - **Dark theme** with vibrant accent colors
 
-### 🔍 Functionality
+###  Functionality
 - **Real-time search** through anime database
 - **Interactive anime cards** with detailed information
 - **Modal popups** for comprehensive anime details
 - **Animated loading effects** and smooth transitions
 - **Mobile-friendly** navigation and layout
 
-### 📊 Anime Database
+###  Anime Database
 - Curated collection of popular anime series
 - Detailed information including:
   - Ratings and episode counts
@@ -27,7 +27,7 @@ A beautiful, modern anime information website built with HTML, CSS, and JavaScri
   - Genres and status (ongoing/completed)
   - Full descriptions and synopses
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - A modern web browser (Chrome, Firefox, Safari, Edge)
@@ -58,7 +58,7 @@ A beautiful, modern anime information website built with HTML, CSS, and JavaScri
    # Then visit http://localhost:8000
    ```
 
-## 🎯 Usage
+##  Usage
 
 ### Basic Navigation
 - **Search**: Use the search bar to find anime by title, genre, or description
@@ -71,7 +71,7 @@ A beautiful, modern anime information website built with HTML, CSS, and JavaScri
 - Search by genre: "Action", "Romance", "Psychological"
 - Search by keywords: "ninja", "demon", "superhero"
 
-## 🛠️ Customization
+##  Customization
 
 ### Adding New Anime
 To add new anime to the database, modify the `animeData` array in the JavaScript section:
@@ -118,7 +118,7 @@ Animation speeds and effects can be adjusted in the CSS:
 }
 ```
 
-## 📱 Responsive Design
+##  Responsive Design
 
 The website is fully responsive and includes:
 - **Desktop**: Full grid layout with hover effects
@@ -129,7 +129,7 @@ The website is fully responsive and includes:
 - **Desktop**: > 768px
 - **Mobile**: ≤ 768px
 
-## 🎨 Design Philosophy
+##  Design Philosophy
 
 ### Visual Design
 - **Glassmorphism**: Modern design trend with translucent elements
@@ -143,7 +143,7 @@ The website is fully responsive and includes:
 - **Accessibility**: Proper contrast ratios and semantic HTML
 - **Performance**: Smooth 60fps animations and transitions
 
-## 🔧 Technical Details
+##  Technical Details
 
 ### Technologies Used
 - **HTML5**: Semantic markup and modern features
@@ -157,11 +157,6 @@ The website is fully responsive and includes:
   - DOM manipulation
   - Event handling
 
-### Browser Compatibility
-- ✅ Chrome 88+
-- ✅ Firefox 87+
-- ✅ Safari 14+
-- ✅ Edge 88+
 
 ### Performance Features
 - **Optimized animations** using `transform` and `opacity`
@@ -169,7 +164,7 @@ The website is fully responsive and includes:
 - **Lazy loading** animations using Intersection Observer
 - **Lightweight** - single HTML file under 15KB
 
-## 🎭 Animation Details
+##  Animation Details
 
 ### Hover Effects
 - **Card lift**: Subtle elevation on hover
@@ -190,7 +185,7 @@ anime-website.html          # Main HTML file containing everything
 └── JavaScript             # Functionality and interactivity
 ```
 
-## 🤝 Contributing
+##  Contributing
 
 Feel free to contribute to this project by:
 1. Adding more anime to the database
@@ -201,7 +196,7 @@ Feel free to contribute to this project by:
 
 
 
-## 📞 Support
+##  Support
 
 If you encounter any issues or have questions:
 1. Check the browser console for error messages
@@ -211,6 +206,6 @@ If you encounter any issues or have questions:
 
 ---
 
-**Built with ❤️ for anime enthusiasts**
+**Built with  for anime enthusiasts**
 
 *Discover your next favorite anime with AnimeVerse!*
