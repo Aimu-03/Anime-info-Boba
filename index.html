@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeVerse - Discover Amazing Anime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="grad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:rgba(255,107,107,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(78,205,196,0.1);stop-opacity:0" /></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23grad)" /></svg>');
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease-in-out infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-section {
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .anime-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #4ecdc4;
+        }
+
+        .anime-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .anime-card:hover::before {
+            opacity: 1;
+        }
+
+        .anime-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anime-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="30,20 70,50 30,80" fill="rgba(255,255,255,0.2)"/></svg>');
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .anime-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .anime-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .anime-genre {
+            display: inline-block;
+            background: rgba(78, 205, 196, 0.3);
+            color: #4ecdc4;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(78, 205, 196, 0.5);
+        }
+
+        .anime-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .anime-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rating {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .anime-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">AnimeVerse</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#popular">Popular</a></li>
+                <li><a href="#genres">Genres</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Discover Amazing Anime</h1>
+            <p>Your ultimate destination for anime information, reviews, and recommendations. Explore thousands of series and find your next favorite.</p>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for anime..." id="searchInput">
+                <button class="search-btn" onclick="searchAnime()">🔍</button>
+            </div>
+        </section>
+
+        <section class="anime-grid" id="animeGrid">
+        </section>
+    </main>
+
+    <div id="animeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const animeData = [
+            {
+                title: "Attack on Titan",
+                genre: "Action",
+                description: "Humanity fights for survival against giant humanoid Titans that devour humans seemingly without reason.",
+                rating: 9.0,
+                episodes: 87,
+                year: 2013,
+                status: "Completed",
+                studio: "Mappa",
+                fullDescription: "Set in a world where humanity lives inside cities surrounded by enormous walls due to the Titans, gigantic humanoid beings who devour humans seemingly without reason. The story follows Eren Yeager, who vows to exterminate the Titans after his hometown is destroyed and his mother is killed."
+            },
+            {
+                title: "Demon Slayer",
+                genre: "Supernatural",
+                description: "A young boy becomes a demon slayer to save his sister who has been turned into a demon.",
+                rating: 8.7,
+                episodes: 44,
+                year: 2019,
+                status: "Ongoing",
+                studio: "Ufotable",
+                fullDescription: "Tanjiro Kamado, a kind-hearted boy who makes a living selling charcoal, finds his family slaughtered by a demon. To make matters worse, his younger sister Nezuko, the sole survivor, has been transformed into a demon herself."
+            },
+            {
+                title: "One Piece",
+                genre: "Adventure",
+                description: "Follow Monkey D. Luffy on his quest to become the Pirate King and find the legendary treasure.",
+                rating: 9.5,
+                episodes: 1000,
+                year: 1999,
+                status: "Ongoing",
+                studio: "Toei Animation",
+                fullDescription: "Monkey D. Luffy sets off on his adventure by himself in a small boat, searching for the legendary treasure called the 'One Piece' to become the next Pirate King. Along his journey, he gathers a diverse crew of pirates, each with their own dreams and goals."
+            },
+            {
+                title: "Naruto",
+                genre: "Ninja",
+                description: "A young ninja's journey to become the strongest ninja and leader of his village.",
+                rating: 8.4,
+                episodes: 720,
+                year: 2002,
+                status: "Completed",
+                studio: "Pierrot",
+                fullDescription: "Naruto Uzumaki, a young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village. The story is told in two parts: the first set in Naruto's pre-teen years, and the second in his teens."
+            },
+            {
+                title: "My Hero Academia",
+                genre: "Superhero",
+                description: "In a world where superpowers are common, a boy without powers aims to become a hero.",
+                rating: 8.6,
+                episodes: 138,
+                year: 2016,
+                status: "Ongoing",
+                studio: "Bones",
+                fullDescription: "Izuku Midoriya, a boy born without superpowers in a world where they have become commonplace, but who still dreams of becoming a superhero himself. He is scouted by the world's greatest hero, All Might, who shares his powers with Izuku."
+            },
+            {
+                title: "Death Note",
+                genre: "Psychological",
+                description: "A high school student discovers a supernatural notebook that can kill anyone whose name is written in it.",
+                rating: 9.0,
+                episodes: 37,
+                year: 2006,
+                status: "Completed",
+                studio: "Madhouse",
+                fullDescription: "Light Yagami, a teen genius who discovers a mysterious notebook: the 'Death Note', which belonged to the shinigami Ryuk, and grants the user the supernatural ability to kill anyone whose name is written in its pages."
+            }
+        ];
+
+        let currentAnime = [...animeData];
+
+        function renderAnime(animeList) {
+            const grid = document.getElementById('animeGrid');
+            grid.innerHTML = '';
+            
+            animeList.forEach((anime, index) => {
+                const card = document.createElement('div');
+                card.className = 'anime-card fade-in';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.onclick = () => openModal(anime);
+                
+                card.innerHTML = `
+                    <div class="anime-image">🎬</div>
+                    <div class="anime-content">
+                        <h3 class="anime-title">${anime.title}</h3>
+                        <span class="anime-genre">${anime.genre}</span>
+                        <p class="anime-description">${anime.description}</p>
+                        <div class="anime-stats">
+                            <div class="stat">
+                                <span>⭐</span>
+                                <span class="rating">${anime.rating}</span>
+                            </div>
+                            <div class="stat">
+                                <span>📺</span>
+                                <span>${anime.episodes} episodes</span>
+                            </div>
+                            <div class="stat">
+                                <span>📅</span>
+                                <span>${anime.year}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function searchAnime() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredAnime = animeData.filter(anime => 
+                anime.title.toLowerCase().includes(searchTerm) ||
+                anime.genre.toLowerCase().includes(searchTerm) ||
+                anime.description.toLowerCase().includes(searchTerm)
+            );
+            renderAnime(filteredAnime);
+        }
+
+        function openModal(anime) {
+            const modal = document.getElementById('animeModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="anime-image" style="margin-bottom: 20px;">🎬</div>
+                <h2 style="margin-bottom: 10px; color: #4ecdc4;">${anime.title}</h2>
+                <span class="anime-genre" style="margin-bottom: 20px;">${anime.genre}</span>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div class="stat">
+                        <strong>Rating:</strong> <span class="rating">${anime.rating}/10</span>
+                    </div>
+                    <div class="stat">
+                        <strong>Episodes:</strong> ${anime.episodes}
+                    </div>
+                    <div class="stat">
+                        <strong>Year:</strong> ${anime.year}
+                    </div>
+                    <div class="stat">
+                        <strong>Status:</strong> ${anime.status}
+                    </div>
+                    <div class="stat">
+                        <strong>Studio:</strong> ${anime.studio}
+                    </div>
+                    <div class="stat">
+                        <strong>Genre:</strong> ${anime.genre}
+                    </div>
+                </div>
+                
+                <p style="line-height: 1.6; color: rgba(255, 255, 255, 0.9); margin-top: 20px;">
+                    ${anime.fullDescription}
+                </p>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('animeModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('animeModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchAnime();
+            }
+        });
+
+        renderAnime(animeData);
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }, 100);
+    </script>
+</body>
+</html>
